@@ -25,8 +25,17 @@ node['php']['packages'].each do |pkg|
 end
 
 template "#{node['php']['conf_dir']}/php.ini" do
-  source "php.ini.erb"
-  owner "root"
-  group "root"
-  mode "0644"
+	source "php.ini.erb"
+	owner "root"
+	group "root"
+	mode "0644"
+end
+
+if platform?("ubuntu")
+	template "/etc/php5/apache2/php.ini" do
+		source "php.ini.erb"
+		owner "root"
+		group "root"
+		mode "0644"
+	end
 end
